@@ -119,6 +119,15 @@ channel, nearly imperceptible: if the intent was a visibly lighter/greyer
 background, this small nudge won't read as one — flag a specific shade
 if so.
 
+### v8 — 2026-07-31
+Tag accent colors (blue/amber/green from v6) were triggering on `:hover`
+of the pill itself, which made them look like independently clickable
+elements — not the intent, they're just a status indicator. Changed the
+trigger to `.tracklist__row:hover .tag--mix` etc. (and same for
+`--master`/`--record`), so hovering anywhere on the row lights up that
+row's pills together, with no implied interactivity on the pills
+themselves.
+
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
