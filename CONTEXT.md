@@ -62,6 +62,23 @@ Also removed the redundant "Mix / Record / Master" list under the headline
 (the eyebrow line above it already says the same three services) and
 reordered the eyebrow to "Recording — Mixing — Mastering" per request.
 
+### v4 — 2026-07-31
+Two interaction additions. (1) Nav auto-hides on scroll down past 80px and
+reveals on scroll up, via a `nav--hidden` class toggled by a scroll listener
+in `js/main.js` (`transform: translateY(-100%)`, 0.4s ease-out). (2) Tracklist
+row dividers now sweep in white left-to-right on hover instead of being a
+static hairline, via a `.tracklist__row::after` line animated with
+`scaleX(0)` → `scaleX(1)` on `:hover` — the same "shoots across" effect
+referenced from sebastianhadl.com's track list.
+
+Note: the nav hide/show couldn't be visually confirmed in the sandboxed
+preview browser used for testing — that environment appears to no-op
+`transform` on `position: fixed` elements specifically (also seen earlier
+as fixed-nav mispositioning during scroll capture). Confirmed via
+`getComputedStyle` that the class toggling logic itself is correct; the
+CSS is standard and should render normally in a real browser. Worth a
+manual check on the live site.
+
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
