@@ -79,6 +79,24 @@ as fixed-nav mispositioning during scroll capture). Confirmed via
 CSS is standard and should render normally in a real browser. Worth a
 manual check on the live site.
 
+### v5 — 2026-07-31
+Follow-up feedback on v4. (1) Nav was using `mix-blend-mode: difference`
+with no background, so it visually inverted against whatever content was
+behind it — unreadable/"masked" once it reappeared over bright content
+mid-page. Swapped that for a solid `background: var(--bg)` plus a
+`border-bottom` hairline, so it now reads as a proper opaque bar with a
+divider, same as the section headings. (2) The hero headline had drifted
+away from the bottom divider bar: `.hero` vertically centered its content
+via `justify-content: center` while `.hero__base` was independently
+pinned via `position: absolute; bottom: 40px`, so the two moved
+independently and the gap between them grew when the old roles list was
+removed in v3. Fixed by putting `.hero__base` back in normal flow and
+anchoring the whole hero block to the bottom (`justify-content: flex-end`),
+so the name and the divider/scroll bar sit together as one unit again.
+(3) Slowed the tracklist hover-sweep line from 0.5s to 0.9s with a longer
+ease-out curve so it reads as a deliberate sweep rather than an instant
+snap.
+
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
