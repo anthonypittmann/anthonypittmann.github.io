@@ -39,6 +39,17 @@ dimming, about section with bio + 3 specialties, contact section with big email
 link. Verified visually in-browser via local `python3 -m http.server`. No console
 errors. Local git repo initialized.
 
+### v2 — 2026-07-31
+Feedback round: replaced the "A·P" nav mark with the full "Anthony Pittman"
+(still links to `#top`, doubles as back-to-top); removed the duplicate
+location line from the hero (it's already in About's fact strip); reworked
+scroll reveals so text "flows" in rather than just popping — headings and the
+hero title use a single-line slide-up mask (`.line-mask`), longer copy (hero
+eyebrow, about bio) cascades in word-by-word (`.flow-words`), and tracklist
+rows stagger in one after another via nth-child transition delays. Dropped
+`scroll-behavior: smooth` (was causing the preview tool's scroll gesture to
+hang — unrelated to the live site, but simpler without it).
+
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
