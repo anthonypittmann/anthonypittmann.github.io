@@ -128,6 +128,9 @@ trigger to `.tracklist__row:hover .tag--mix` etc. (and same for
 row's pills together, with no implied interactivity on the pills
 themselves.
 
+### v9 — 2026-07-31
+Swapped `--accent-record` from green (`#6fcf97`) to red (`#ff5c5c`).
+
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
