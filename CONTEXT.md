@@ -131,6 +131,18 @@ themselves.
 ### v9 — 2026-07-31
 Swapped `--accent-record` from green (`#6fcf97`) to red (`#ff5c5c`).
 
+### v10 — 2026-07-31
+Mobile pass. Tested at 375px (phone) and 768px (tablet) via the browser
+preview; most sections already held up fine thanks to existing clamp()
+sizing and the 720px/1000px breakpoints from earlier versions. The one
+real break was the fixed nav: "Anthony Pittman" plus the Work/About/
+Contact links would wrap mid-word at narrow widths. Added a
+`max-width: 480px` block that stacks the nav into two rows (name, then
+links) instead of letting it wrap awkwardly, and trims section/hero
+padding down (140px→72px vertical, 40px→24px horizontal) so there isn't
+excessive empty space on small screens. Verified no horizontal overflow
+at 375px (`scrollWidth === innerWidth`).
+
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
