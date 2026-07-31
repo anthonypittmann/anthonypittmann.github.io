@@ -110,6 +110,15 @@ tag pills only: each gets a distinct accent color on hover (blue/amber/
 green, defined as `--accent-mix` / `--accent-master` / `--accent-record`
 in `:root`) — everything else on the site stays monochrome.
 
+### v7 — 2026-07-31
+Matched `--bg` to sebastianhadl.com's actual measured background color:
+checked via `getComputedStyle` on the live reference site and it's
+`rgb(12, 12, 11)` (`#0c0c0b`), a warm near-black charcoal — changed from
+our prior `#0a0a0a`. Note: these two values are only 2 units apart per
+channel, nearly imperceptible: if the intent was a visibly lighter/greyer
+background, this small nudge won't read as one — flag a specific shade
+if so.
+
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
