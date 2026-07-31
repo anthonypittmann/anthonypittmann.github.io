@@ -97,6 +97,19 @@ so the name and the divider/scroll bar sit together as one unit again.
 ease-out curve so it reads as a deliberate sweep rather than an instant
 snap.
 
+### v6 — 2026-07-31
+Contact section trimmed to phone + Instagram only (dropped LinkedIn and
+SoundCloud placeholders). Work section now has a sticky album-cover
+preview panel on the right (`.work__preview`, hidden below 1000px) that
+cross-fades in a placeholder per row on hover, wired up in `js/main.js`
+via each row's `data-cover` attribute — swap the placeholder
+`.work__preview-item` content for real cover art per project later.
+Tracklist numbers now turn white on row hover. Explicitly broke the
+black & white constraint (per direct request) for the MIX/MASTER/RECORD
+tag pills only: each gets a distinct accent color on hover (blue/amber/
+green, defined as `--accent-mix` / `--accent-master` / `--accent-record`
+in `:root`) — everything else on the site stays monochrome.
+
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
