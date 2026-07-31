@@ -50,6 +50,18 @@ rows stagger in one after another via nth-child transition delays. Dropped
 `scroll-behavior: smooth` (was causing the preview tool's scroll gesture to
 hang — unrelated to the live site, but simpler without it).
 
+### v3 — 2026-07-31
+Fixed a hero layout bug reported on a real (wide, ~1310px) browser window:
+large gap above the headline plus "MIX / RECORD / MASTER" visually
+overlapping the title. Root cause suspected to be the Google Fonts
+`display=swap` load swapping in Anton mid-reveal-transition and reflowing
+the flex-centered hero while a transform-based transition was in flight.
+Fix: `js/main.js` now waits on `document.fonts.ready` before starting the
+IntersectionObserver reveals, so layout is settled before anything animates.
+Also removed the redundant "Mix / Record / Master" list under the headline
+(the eyebrow line above it already says the same three services) and
+reordered the eyebrow to "Recording — Mixing — Mastering" per request.
+
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
