@@ -143,6 +143,16 @@ padding down (140px→72px vertical, 40px→24px horizontal) so there isn't
 excessive empty space on small screens. Verified no horizontal overflow
 at 375px (`scrollWidth === innerWidth`).
 
+### v11 — 2026-07-31
+Nav links (and back-to-top) were plain anchor jumps — instant, no
+animation. Added a click handler in `js/main.js` on every `a[href^="#"]`
+that intercepts the jump and does `window.scrollTo({ top, behavior:
+"smooth" })` instead, with `top` offset by the nav's current height so
+sections don't land tucked underneath the fixed nav bar. Deliberately did
+this in JS rather than re-adding global `scroll-behavior: smooth` (which
+was removed in v3 after it caused issues) so the offset compensation
+could be included.
+
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
