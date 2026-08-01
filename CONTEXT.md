@@ -214,6 +214,19 @@ row hover (desktop) / permanently on touch, only `color` and
 a colored outline (fully saturated, not washed out) consistent with the
 site's existing pill styling, rather than a solid badge.
 
+### v16 — 2026-08-01
+The touch-mode tag colors (from v12/v15) still didn't appear on the
+user's iPhone even after the cache fix — this time a real bug, not
+caching. Root cause: CSS specificity. `.tracklist__tags em` (the base
+pill style, specificity 0-1-1: one class + one element) was beating
+`.tag--mix` alone (0-1-0: one class) inside the `@media (hover: none)`
+block, so the base gray color/border silently won regardless of whether
+the media query matched. This has been broken since v12 — the earlier
+"faded" complaint may have partly been this too, tangled up with the
+separate caching issue. Fixed by bumping the selector to
+`.tracklist__tags em.tag--mix` (0-2-1), which unambiguously outranks the
+base rule. Bumped cache-busting to `?v=16`.
+
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
