@@ -227,6 +227,23 @@ separate caching issue. Fixed by bumping the selector to
 `.tracklist__tags em.tag--mix` (0-2-1), which unambiguously outranks the
 base rule. Bumped cache-busting to `?v=16`.
 
+### v17 — 2026-08-01
+The tracklist row hover effects (sweep-line divider, number turning
+white, row highlight) were gated behind `:hover`, same problem as the
+tag colors — no hover on touchscreens means these never showed on
+iPhone. Rather than making them permanently-on like the tag colors
+(these are more of an interactive flourish than a status indicator, so
+"always on" would just mean every row looks identical), added a tap
+handler in `js/main.js`: clicking/tapping a `.tracklist__row` toggles an
+`.is-touched` class, which every affected CSS rule now also matches
+alongside `:hover` (e.g. `.tracklist__row:hover, .tracklist__row.is-touched`).
+Tapping a row highlights it (sweep line draws in, number brightens);
+tapping a different row moves the highlight; tapping the same row again
+clears it. Verified via a real simulated click in the test browser —
+note `getComputedStyle` inside this sandbox's JS-eval tool returned
+stale values when checking class-toggle results, but the actual
+rendered screenshot confirmed the effect works correctly.
+
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
