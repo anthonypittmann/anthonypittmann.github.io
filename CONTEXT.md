@@ -184,6 +184,24 @@ instead: full-strength accent color as the background, `var(--bg)` (dark)
 text, `font-weight: 700` — same treatment on both hover and touch so
 there's no inconsistency between desktop and mobile anymore.
 
+### v14 — 2026-08-01
+User reported the tag colors still looked washed out on iPhone after
+v13, with a screenshot showing muted navy/maroon/olive fills — that
+visual exactly matches v12's old 12%-opacity `color-mix()` tint against
+the near-black background, not v13's solid-fill badges. Verified via
+`curl` and `gh api .../pages/builds/latest` that the server is correctly
+serving v13 (commit `190ea3a`, build status "built"), so the phone was
+almost certainly showing a stale cached `style.css` — GitHub Pages sends
+`cache-control: max-age=600` and Safari can hold onto that (or longer)
+across app switches/tab revisits without revalidating.
+
+Fix: added a `?v=13` cache-busting query string to the `style.css` and
+`main.js` `<link>`/`<script>` tags in `index.html`. Bump this version
+number on every future release so browsers are forced to fetch fresh
+assets instead of relying on users to hard-refresh. Left the actual tag
+color CSS untouched (still v13's solid-fill badges) pending the user
+confirming what it actually looks like once the stale cache is gone.
+
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
