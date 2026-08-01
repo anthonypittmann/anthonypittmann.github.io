@@ -153,6 +153,26 @@ this in JS rather than re-adding global `scroll-behavior: smooth` (which
 was removed in v3 after it caused issues) so the offset compensation
 could be included.
 
+### v12 — 2026-07-31
+Three mobile fixes. (1) The v10 nav fix over-corrected: stacking the nav
+into two left-aligned rows moved the Work/About/Contact links off the
+right edge. Reverted to a single row (matches desktop's space-between)
+and instead shrank `.nav__mark`/`.nav__links` font sizes and gap so both
+fit without wrapping down to ~320px. (2) The MIX/MASTER/RECORD tag accent
+colors were gated behind `:hover`, which doesn't work on touchscreens —
+added an `@media (hover: none)` block that shows each tag's accent color
+permanently on touch devices instead of requiring a hover that can't
+happen. Couldn't visually verify this one in the test sandbox (a resized
+desktop browser still reports `hover: hover`, never `hover: none`) but
+the CSS is standard and correctly scoped. (3) The sticky right-side
+album-cover preview panel is hidden below 1000px with nothing replacing
+it, so mobile lost the visual entirely. Added a small always-visible
+`.tracklist__cover` thumbnail (currently the same numeral placeholder as
+the desktop preview) to each row, shown only below 720px via a
+`grid-template-areas` change that puts it to the left of the row's
+stacked details — same real-image swap-in path as the desktop preview
+once actual cover art exists.
+
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
