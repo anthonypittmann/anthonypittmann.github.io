@@ -202,6 +202,18 @@ assets instead of relying on users to hard-refresh. Left the actual tag
 color CSS untouched (still v13's solid-fill badges) pending the user
 confirming what it actually looks like once the stale cache is gone.
 
+### v15 — 2026-08-01
+Cache-busting worked — user confirmed via a fresh iPhone screenshot that
+v13's solid-fill badges were in fact rendering (bold blue/red/amber
+pills), which resolved the "faded" mystery: it really had been a stale
+cache. But the solid-fill look itself read as "sillier" / too loud for
+the site — a gumdrop-colored badge clashes with the otherwise minimal
+outlined-pill style used everywhere else. Landed on a middle ground: on
+row hover (desktop) / permanently on touch, only `color` and
+`border-color` change to the accent hue — no fill at all, so it reads as
+a colored outline (fully saturated, not washed out) consistent with the
+site's existing pill styling, rather than a solid badge.
+
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
