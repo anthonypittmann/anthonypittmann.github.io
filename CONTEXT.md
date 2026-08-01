@@ -244,6 +244,27 @@ note `getComputedStyle` inside this sandbox's JS-eval tool returned
 stale values when checking class-toggle results, but the actual
 rendered screenshot confirmed the effect works correctly.
 
+### v18 — 2026-08-01
+Per user request (and since tapping wasn't a great answer either): the
+divider line under each tracklist row now sweeps in left-to-right
+automatically as the row scrolls into view, no interaction required.
+Added `.tracklist__row.in-view::after { transform: scaleX(1); }`
+(`in-view` is the same class the existing IntersectionObserver already
+adds for the row's fade-in), staggered per row via a `--i` custom
+property set in `js/main.js` (`transition-delay: calc(var(--i) * 60ms +
+400ms)`) so the lines cascade in a beat after each row fades in, rather
+than all at once.
+
+Had to be careful here: naively giving `::after` a flat per-row
+`transition-delay` would have also delayed the *hover/tap* reaction
+(same element, same property, transition-delay isn't conditional on
+which class triggered the change). Fixed by scoping the delay to only
+`.tracklist__row.in-view::after`, and adding a same-specificity
+`.tracklist__row:hover::after, .tracklist__row.is-touched::after` rule
+*after* it in source order that resets `transition-delay: 0s` — so
+hover/tap still react instantly even on a row that already auto-revealed.
+The tap-to-reveal from v17 is kept as a bonus, not removed.
+
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
