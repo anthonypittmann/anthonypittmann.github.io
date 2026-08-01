@@ -265,6 +265,20 @@ which class triggered the change). Fixed by scoping the delay to only
 hover/tap still react instantly even on a row that already auto-revealed.
 The tap-to-reveal from v17 is kept as a bonus, not removed.
 
+### v19 — 2026-08-01
+Added a page-wide max content width (`--content-max: 1600px`) so the
+site doesn't stretch edge-to-edge on very wide monitors (user's case:
+a 34" ultrawide). Applied `max-width: var(--content-max); margin: 0
+auto;` to `.nav`, the generic `section` rule (covers hero/work/about/
+contact since they're all `<section>` elements), and `.footer`. Nav's
+background/border-bottom and every section divider now only span the
+centered 1600px column rather than the full viewport — looks
+intentional rather than broken since `.nav`'s background color is
+identical to the page background, so there's no visible seam, just the
+divider lines stopping at the column edge. Verified at a simulated
+3440px viewport: content boxes centered correctly, headline no longer
+sprawls, work section list + preview panel both contained.
+
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
