@@ -173,6 +173,17 @@ the desktop preview) to each row, shown only below 720px via a
 stacked details — same real-image swap-in path as the desktop preview
 once actual cover art exists.
 
+### v13 — 2026-07-31
+Tag accent colors looked "really faded" on iPhone. Root cause: the
+active state was a thin 1px accent-colored border/text plus a 12%-opacity
+tint background — against the near-black `--bg`, that low-opacity tint
+is barely there, and on a high-contrast OLED screen the whole thing reads
+as washed out rather than a bold accent. Changed both the desktop hover
+rule and the touch `@media (hover: none)` rule to a solid-fill badge
+instead: full-strength accent color as the background, `var(--bg)` (dark)
+text, `font-weight: 700` — same treatment on both hover and touch so
+there's no inconsistency between desktop and mobile anymore.
+
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
