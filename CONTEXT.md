@@ -279,6 +279,20 @@ divider lines stopping at the column edge. Verified at a simulated
 3440px viewport: content boxes centered correctly, headline no longer
 sprawls, work section list + preview panel both contained.
 
+### v20 — 2026-08-03
+Added a fourth service tag, **Alt Mix** (`.tag--alt`, accent
+`--accent-alt: #c084fc` — soft violet), for showcasing mixes that
+either aren't yet released or that the artist granted permission to
+share even when this wasn't the final chosen version. Matches the
+existing outlined-pill tag pattern exactly: no fill, accent
+color/border on row hover (desktop) via
+`.tracklist__row:hover .tag--alt`, and permanently on touch via
+`.tracklist__tags em.tag--alt` inside `@media (hover: none)` (using
+the same higher-specificity selector fixed in v16). Demoed on
+placeholder row 01 (was `Mix`, now `Alt Mix`) so the user can see it
+render; real per-track assignment pending — all titles/artists are
+still placeholders. Bumped cache-busting to `?v=20`.
+
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).

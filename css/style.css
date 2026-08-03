@@ -8,6 +8,7 @@
   --accent-mix: #5b8cff;
   --accent-master: #ffb84d;
   --accent-record: #ff5c5c;
+  --accent-alt: #c084fc;
 
   --content-max: 1600px;
 
@@ -366,6 +367,11 @@ section {
   border-color: var(--accent-record);
 }
 
+.tracklist__row:hover .tag--alt {
+  color: var(--accent-alt);
+  border-color: var(--accent-alt);
+}
+
 /* Touch devices can't hover, so show each tag's accent color
    permanently instead of gating it behind a hover state. Just the
    outline/text color, no fill -- matches the rest of the site's
@@ -384,6 +390,11 @@ section {
   .tracklist__tags em.tag--record {
     color: var(--accent-record);
     border-color: var(--accent-record);
+  }
+
+  .tracklist__tags em.tag--alt {
+    color: var(--accent-alt);
+    border-color: var(--accent-alt);
   }
 }
 
