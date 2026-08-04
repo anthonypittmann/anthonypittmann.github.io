@@ -1,1 +1,6 @@
 .DS_Store
+
+# Real audio/art dropped in for local testing only -- never commit
+# actual client tracks/art to this public repo. Real assets will be
+# served from a DigitalOcean Space instead.
+assets/audio/local-test/
