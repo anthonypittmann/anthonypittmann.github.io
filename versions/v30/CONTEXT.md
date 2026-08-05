@@ -486,13 +486,6 @@ Swapped `--accent-waveform` again, from `#ffaa4d` (amber-orange) to
 `#ff6b4a` (coral) — user picked this one from the same swatch grid
 after trying amber-orange first.
 
-### v30 — 2026-08-05
-Moved off orange entirely — user asked for blue. Presented 6 blue
-variants as a swatch grid (same technique as v28/v29); user picked
-"periwinkle" (`#7ea8ff`), the lightest/softest option. `--accent-waveform`
-changed from `#ff6b4a` (coral) to `#7ea8ff`. Bumped cache-busting to
-`?v=30`.
-
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
