@@ -503,36 +503,6 @@ Swapped again, from indigo blue (`#5b6fd6`) to "sky blue" (`#4d9bff`) —
 another option from the same v30 swatch grid, brightest/highest
 visibility of the set. Bumped cache-busting to `?v=32`.
 
-### v33 — 2026-08-23
-First SEO pass, technical/on-page changes only (structured data and
-real contact info intentionally deferred — the phone/email in Contact
-are still placeholders, and local-business schema needs real values to
-be worth adding). Changes:
-- `<title>` now reads "Anthony Pittman — Mixing & Mastering Engineer in
-  Saskatoon, SK" (was just "— Mix Engineer") so the city and both
-  services are in the single most SEO-weighted tag on the page.
-- Added `<link rel="canonical" href="https://anthonypittman.ca/">`.
-- Added Open Graph (`og:*`) and Twitter card meta tags so links shared
-  on social/text get a real title/description/image preview instead of
-  nothing — `og:image`/`twitter:image` point at the existing
-  `Overdose.png` on the DigitalOcean CDN since it's the only real image
-  asset on the site; swap for a proper branded/photo image later.
-- Both real `<img>` tags (row 1's cover art, desktop preview panel) got
-  actual `alt="Overdose single artwork"` text instead of `alt=""` —
-  helps image search indexing even though the containers are
-  `aria-hidden` for screen readers.
-- Added `robots.txt` (allow all, points at sitemap) and `sitemap.xml`
-  (single URL, the homepage) at the repo root — neither existed before.
-
-Did not bump `css/style.css`'s `?v=` cache-buster — no CSS/JS changed
-this version, only `index.html` plus two new root files.
-
-Local SEO note for next time: the biggest remaining lever is a Google
-Business Profile (can't be created by an AI agent — needs the user to
-verify ownership) plus swapping the placeholder phone/email for real
-ones, at which point LocalBusiness JSON-LD structured data becomes
-worth adding.
-
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
