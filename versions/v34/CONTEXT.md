@@ -533,27 +533,6 @@ verify ownership) plus swapping the placeholder phone/email for real
 ones, at which point LocalBusiness JSON-LD structured data becomes
 worth adding.
 
-### v34 — 2026-08-23
-Security pass on the CDN-loaded `wavesurfer.js` script. It was loaded as
-`wavesurfer.js@7` (floating major version) with no integrity check — if
-unpkg or the package were ever compromised, malicious JS could run in
-visitors' browsers with no warning. Pinned to the exact resolved version
-(`7.12.11`) and added a Subresource Integrity (`integrity` + `crossorigin`)
-attribute, so the browser refuses to execute the file if its contents
-don't match the expected hash. Verified locally via `python3 -m
-http.server`: `WaveSurfer` global loads correctly (SRI hash is valid);
-the only console errors were the pre-existing DigitalOcean CORS
-restriction (documented in v22) that only allows audio fetches from the
-real `anthonypittman.ca` origin, not `localhost` — unrelated to this
-change. No other security issues found in an ad-hoc review: no secrets/
-API keys in the repo, HTTPS is enforced with a valid cert (checked via
-`gh api .../pages`), HTTP correctly redirects to HTTPS, and DigitalOcean
-Spaces CORS is already scoped to just this domain. Custom response
-security headers (CSP, X-Frame-Options, etc.) aren't possible on plain
-GitHub Pages without fronting it with something like Cloudflare —
-judged not worth the added complexity for a static site with no forms/
-login/user data.
-
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
