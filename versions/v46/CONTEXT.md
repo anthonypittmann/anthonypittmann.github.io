@@ -851,38 +851,6 @@ size on both desktop and the new mobile stacked layout.
 
 Bumped `style.css` cache-busting to `?v=45` (no JS changes).
 
-### v46 — 2026-08-23
-Three fixes on user feedback.
-
-**Nav icon too small, didn't pop.** Was using v44's unframed/transparent
-`nav-mark.png` at 20px (15px mobile) -- against the nav bar's identical
-`--bg` background, the mark had nothing to visually separate it. Swapped
-to a new framed version, `assets/icons/nav-icon.png` (320px source):
-frame fill bumped to a slightly lighter `#1c1c1a` (rather than exactly
-`--bg`) and the border stroke opacity raised from 0.22 to 0.4 -- both
-changes specifically so the chip reads as a distinct shape against the
-nav bar rather than blending into it. Sized up to 32px desktop / 24px
-mobile (from 20/15px). Verified the actual contrast (not just eyeballing
-the icon in isolation) by compositing the real PNG onto a canvas filled
-with the site's exact `#111110` and the nav wordmark text next to it.
-Old `nav-mark.png` deleted, no longer referenced anywhere.
-
-**Canada badge no longer links out.** Was wrapped in
-`<a href="https://cansumer.ca/made-in-canada/">` -- user doesn't want
-visitors leaving the site via the footer badge. Now a plain `<span>`,
-no href, no hover state.
-
-**Canada badge text now actually visible.** The badge image has "OWNED
-& OPERATED IN CANADA" baked into it as tiny curved text around the
-circle -- illegible at the 40px display size from v45 (or really any
-reasonable footer size). Added a real, readable `<span>Owned &
-Operated in Canada</span>` next to the image (inherits the footer's
-existing mono/uppercase/dim styling) and bumped the image itself to
-56px. Image's `alt` changed to `""` since the adjacent text now
-carries the meaning -- avoids a screen reader announcing it twice.
-
-Bumped `style.css` cache-busting to `?v=46` (no JS changes).
-
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
