@@ -774,50 +774,6 @@ as before.
 
 Bumped both `style.css` and `main.js` cache-busting to `?v=43`.
 
-### v44 — 2026-08-23
-Designed and shipped a real brand mark: a "fader" icon (three vertical
-sliders, staggered heights, middle one in the site's accent blue) in
-place of generic initials -- fits a mixing engineer's site far better.
-Iterated through several rounds live with the user (single vs.
-three-fader, plain rectangle vs. a real fader-cap look with a grip
-groove line, framed rounded-square vs. edge-to-edge) before landing on:
-grey tracks (`#8c8c88`, reused from `--fg-dim`), white/blue/white caps
-with a groove-line detail, in a "bubbly" rounded-square frame
-(`border-radius` ~30% of size, subtle light stroke) for the favicon.
-
-Design was built as an HTML canvas drawing function (parameterized by
-size, so every size is drawn crisp rather than one bitmap being
-scaled down) and rendered into real files rather than screenshots --
-this session's screenshot capture is unreliable for verifying visual
-output (recurring quirk, see v4/v12/v17/v35/v41), so PNGs were
-extracted directly via `canvas.toDataURL()` and, once a single
-`javascript_exec` result got too large for one round-trip, POSTed from
-the browser to a tiny local Python server that decoded + wrote them to
-disk -- avoids ever hand-transcribing a multi-KB base64 string (an
-earlier attempt at that produced silently-corrupted files).
-
-Shipped as two variants of the same mark:
-- **Favicon** (`assets/icons/favicon-{48,96,192}.png` +
-  `apple-touch-icon.png`, 180px): the framed version. Linked in
-  `index.html`'s `<head>` via `<link rel="icon">` (three sizes, PNG --
-  no `.ico` file, unnecessary now that every modern browser and
-  Google's crawler support PNG favicons directly) and
-  `<link rel="apple-touch-icon">`.
-- **Nav mark** (`assets/icons/nav-mark.png`, 256px source, true alpha
-  transparency): the unframed version, since the nav bar's own
-  background already matches `--bg` -- placed inside `.nav__mark`
-  before the "Anthony Pittman" text, styled via new `.nav__mark-icon`
-  (20px desktop / 15px at the existing 480px mobile breakpoint,
-  `.nav__mark` switched to `inline-flex` with an 8px/6px gap to lay
-  icon + text out side by side).
-
-Verified via DOM (`getBoundingClientRect`, `naturalWidth/Height`) and
-direct `curl` checks that every linked file resolves with 200 -- not
-via screenshot, per the sandbox limitation above.
-
-Bumped `style.css` cache-busting to `?v=44` (no JS changes this
-version).
-
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
