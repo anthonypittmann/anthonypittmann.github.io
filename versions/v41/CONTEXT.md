@@ -689,47 +689,6 @@ itself reports `border-radius: 0px`.
 
 Bumped both `style.css` and `main.js` cache-busting to `?v=40`.
 
-### v41 — 2026-08-23
-Two fixes.
-
-**iPhone email cutoff.** User reported the contact email looked slightly
-cut off on iPhone. Root cause: the real address
-(`mixing@anthonypittman.ca`, swapped in at v35) is one unbroken string
-with no spaces for the browser's default text wrapping to break on --
-at narrow phone widths it was overflowing its box, and `.line-mask`
-(used for the slide-up reveal animation on this element) clips
-overflow via `overflow: hidden`, so the overflowing tail was getting
-visually chopped off. Fixed with `overflow-wrap: break-word` +
-`word-break: break-word` on `.contact__email`, plus `max-width: 100%`
-and a small `line-height` bump (1 -> 1.15) so a wrapped second line
-doesn't look cramped. Verified in mobile emulation (375px): the address
-now wraps cleanly to 2 lines with zero scroll overflow (confirmed via
-`scrollWidth === clientWidth`), where before it would have overflowed.
-
-**Divider line as a scroll indicator on touch devices.** Per feedback:
-desktop keeps the v39 hover-only divider line untouched. On touch
-devices (no `:hover`), added a second, independent mechanism -- a new
-`.in-frame` class continuously tracks whichever row is currently
-centered in the viewport as the user scrolls (via an
-`IntersectionObserver` with a thin `rootMargin: "-45% 0px -45% 0px"`
-band around vertical center, gated behind
-`window.matchMedia("(hover: none)").matches` so this whole block no-ops
-on desktop). This is separate from the existing tap-to-select
-`.is-touched` state -- both can independently trigger the same
-`::after` line, scoped together inside the same `@media (hover: none)`
-CSS block. Could not verify the live scrolling behavior in this
-sandbox: even a bare-minimum `IntersectionObserver` with no options
-never fired its callback in the test tab (isolated this from the
-rootMargin logic specifically), consistent with this environment's
-long-documented scroll/hover simulation limitations (v4, v12, v17,
-v35). The `matchMedia("(hover: none)")` device-detection gate itself
-*did* verify correctly under mobile emulation. Code uses the same
-IntersectionObserver pattern already proven working for this site's
-reveal-on-scroll system, but this specific piece needs a real iPhone
-check to confirm.
-
-Bumped both `style.css` and `main.js` cache-busting to `?v=41`.
-
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
