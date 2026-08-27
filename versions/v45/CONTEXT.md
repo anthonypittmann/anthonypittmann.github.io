@@ -818,39 +818,6 @@ via screenshot, per the sandbox limitation above.
 Bumped `style.css` cache-busting to `?v=44` (no JS changes this
 version).
 
-### v45 — 2026-08-23
-Added a "Owned and Operated in Canada" verification badge
-(cansumer.ca) to the footer, linking out to
-`https://cansumer.ca/made-in-canada/`. User asked whether it could be
-recolored to fit the site's palette; decided against it and said so --
-this is a third-party certification mark, not decorative brand
-artwork, so changing its colors would read as tampering with the
-badge rather than styling it. Left the badge's own white/red/black
-colors untouched (verified via direct download: a 483x484 white
-circle, black outline/text, red maple leaf) and instead styled its
-*presentation* to fit: `.footer__badge` sized to 40x40px, `opacity:
-0.85` with a `0.75 -> 1` hover fade matching the pattern already used
-on `.contact__grid a`/`.nav__links a` (also newly added a general
-`.footer a` hover rule, since the "Back to top" link had none before).
-`.footer` gained `align-items: center` so the taller badge image lines
-up with the text baseline either side of it.
-
-Footer is `display:flex; justify-content:space-between` with the
-badge now sitting as a third item between the copyright and "Back to
-top" -- fine at desktop widths, but three items in one row was too
-tight on phones, so the existing `max-width:480px` footer breakpoint
-now also switches to `flex-direction: column` with a centered,
-16px-gapped stack.
-
-Image is hotlinked directly from cansumer.ca's own CDN (as their
-official embed snippet does) rather than self-hosted -- that's
-consistent with how these verification badges are meant to be
-embedded. Verified via `curl` that the URL resolves (200, real PNG)
-and via the browser that it actually loads and renders at the intended
-size on both desktop and the new mobile stacked layout.
-
-Bumped `style.css` cache-busting to `?v=45` (no JS changes).
-
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
