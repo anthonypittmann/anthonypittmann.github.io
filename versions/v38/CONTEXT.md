@@ -610,26 +610,6 @@ and doesn't feed anything back to that element.
 Bumped `js/main.js` cache-busting to `?v=37` (JS changed, CSS didn't --
 left `style.css?v=32` alone).
 
-### v38 — 2026-08-23
-User reported the Spotify embed's rounded corners weren't fully seamless
--- a screenshot showed faint light slivers at the four corners. Root
-cause: the `border-radius: 12px` was only set inline via JS
-(`iframe.style.borderRadius`), with no `overflow: hidden`/`clip` and no
-background color set on the iframe itself -- Spotify's own internal
-dark card doesn't perfectly fill the iframe's literal rectangular box
-at the corners, so the iframe's default white background showed through
-the gap. Moved the styling to CSS (`.tracklist__player iframe` in
-`style.css`: `border-radius: 12px`, `overflow: hidden`, `background:
-var(--bg)`, `display: block`) and dropped the inline JS style. The
-background-color match is the actual fix -- now any sub-pixel gap
-blends into the page's `#111110` instead of showing white. Verified via
-`getComputedStyle` on the live iframe (`overflow: clip`, background
-`rgb(17,17,16)`) rather than a screenshot -- this sandbox's scroll/
-screenshot capture had another one of its recurring quirks (see v4/v12/
-v17/v35) and returned an unstyled snapshot instead of the real render.
-
-Bumped both `style.css` and `main.js` cache-busting to `?v=38`.
-
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
