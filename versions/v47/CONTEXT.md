@@ -883,30 +883,6 @@ carries the meaning -- avoids a screen reader announcing it twice.
 
 Bumped `style.css` cache-busting to `?v=46` (no JS changes).
 
-### v47 — 2026-08-23
-Two follow-ups from v46 feedback.
-
-**Nav icon was blurry.** Root cause: v46's `nav-icon.png` was rendered
-at 320px and displayed at 32px -- a 10x downscale, which muddied the
-fine details (groove lines, thin fader tracks) since heavy bilinear
-downscaling doesn't preserve hairline detail well. Regenerated at
-120px source (3x the new 40px display target -- enough headroom for
-retina without an excessive downscale ratio). Verified sharpness by
-compositing the actual PNG at real display size onto a canvas filled
-with the site's exact `#111110`, next to the nav wordmark text --
-groove lines and border are now clearly legible, not muddy. Also
-bumped the display size itself up further per request: 32px -> 40px
-desktop, 24px -> 30px mobile.
-
-**Canada badge size reverted.** User liked v45's original 40px size
-better than v46's bump to 56px (which was to help the badge's own
-tiny baked-in text read better) -- reverted `.footer__badge img` back
-to 40px. The real fix for badge-text legibility is already in place
-from v46 (a separate plain-text label next to the image), so the
-image itself doesn't need to carry that weight.
-
-Bumped `style.css` cache-busting to `?v=47` (no JS changes).
-
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
