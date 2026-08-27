@@ -582,34 +582,6 @@ resolves via `curl` — Instagram serves a generic client-rendered shell
 to non-browser requests regardless of whether the handle exists, so
 that check is inconclusive either way; used the handle as given.
 
-### v37 — 2026-08-23
-Added Spotify embed support as an alternative to the custom waveform
-player, for tracks actually released on Spotify -- a play through
-Spotify's own embed counts as a real stream (subject to their normal
-30-second threshold), unlike the self-hosted waveform player which
-doesn't generate anything for the artist. Hybrid approach: a row opts
-in by putting the Spotify track ID on its `.tracklist__player` as
-`data-spotify-track="..."` with no button/waveform markup inside;
-`js/main.js` fills it with Spotify's official embed iframe
-(`open.spotify.com/embed/track/...`, `theme=0` for dark background to
-match the site). Rows without that attribute keep building the custom
-WaveSurfer player exactly as before -- the row-building loop now
-selects `.tracklist__player:not([data-spotify-track]) .tracklist__play`
-so Spotify rows are skipped there. Row 1 (previously "Project Title
-One" / the real Overdose audio+art from the DigitalOcean Space) is now
-the first test case, pointed at the real Spotify track (ID
-`4yNeCk7j8N7XQOglvuGSjC`, "Overdose" by Pittman) -- confirmed by loading
-the embed URL directly in a browser tab and seeing the real track,
-cover art, and title render correctly. `tracklist__title`/`tracklist__artist`
-text on that row are still the old placeholders ("Project Title One" /
-"Artist Name") -- content update, not done here. `tracklist__time`
-("3:24") is also now just static informational text next to the tags
-for Spotify rows, since Spotify's embed shows its own duration/progress
-and doesn't feed anything back to that element.
-
-Bumped `js/main.js` cache-busting to `?v=37` (JS changed, CSS didn't --
-left `style.css?v=32` alone).
-
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).

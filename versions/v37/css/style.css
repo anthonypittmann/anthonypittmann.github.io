@@ -1,0 +1,696 @@
+:root {
+  color-scheme: dark;
+
+  --bg: #111110;
+  --fg: #f2f1ec;
+  --fg-dim: #8c8c88;
+  --line: rgba(242, 241, 236, 0.14);
+  --line-strong: rgba(242, 241, 236, 0.3);
+
+  --accent-mix: #5b8cff;
+  --accent-master: #ffb84d;
+  --accent-record: #ff5c5c;
+  --accent-alt: #c084fc;
+  --accent-waveform: #4d9bff;
+
+  --content-max: 1600px;
+
+  --font-display: "Anton", "Arial Narrow", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-body: "Inter", -apple-system, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul, ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2 {
+  margin: 0;
+}
+
+/* subtle static grain to keep pure black/white from feeling flat */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- nav ---------- */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 28px 40px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav.nav--hidden {
+  transform: translateY(-100%);
+}
+
+.nav__mark {
+  font-weight: 700;
+  opacity: 0.9;
+  transition: opacity 0.25s ease;
+}
+
+.nav__mark:hover {
+  opacity: 1;
+}
+
+.nav__links {
+  display: flex;
+  gap: 32px;
+}
+
+.nav__links a {
+  opacity: 0.7;
+  transition: opacity 0.25s ease;
+}
+
+.nav__links a:hover {
+  opacity: 1;
+}
+
+/* ---------- hero ---------- */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 40px 40px;
+  position: relative;
+}
+
+.hero__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  margin-bottom: 24px;
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 0.86;
+  text-transform: uppercase;
+  font-size: clamp(64px, 14vw, 220px);
+  letter-spacing: -0.01em;
+}
+
+.hero__base {
+  margin-top: 56px;
+  display: flex;
+  justify-content: flex-end;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+}
+
+.hero__scroll i {
+  display: inline-block;
+  font-style: normal;
+  animation: bob 1.6s ease-in-out infinite;
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+
+/* ---------- shared section head ---------- */
+section {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 140px 40px;
+  position: relative;
+  z-index: 2;
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 64px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 24px;
+}
+
+.section-head h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(32px, 5vw, 56px);
+  letter-spacing: -0.01em;
+}
+
+.section-head__count {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--fg-dim);
+}
+
+/* ---------- work / tracklist ---------- */
+.work__body {
+  display: flex;
+  align-items: flex-start;
+  gap: 64px;
+}
+
+.tracklist {
+  flex: 1;
+  min-width: 0;
+}
+
+.work__preview {
+  position: sticky;
+  top: 120px;
+  width: 300px;
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.work__preview-item {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.work__preview-item.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.work__preview-item span {
+  font-family: var(--font-display);
+  font-size: 96px;
+  color: var(--line-strong);
+}
+
+.work__preview-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 1000px) {
+  .work__preview {
+    display: none;
+  }
+}
+
+.tracklist__cover {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--line);
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--line-strong);
+  overflow: hidden;
+}
+
+.tracklist__cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tracklist__row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 48px 1fr 200px 140px 90px;
+  align-items: center;
+  gap: 24px;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--line);
+  transition: background 0.25s ease;
+}
+
+.tracklist__row::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: var(--fg);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.9s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.tracklist:hover .tracklist__row {
+  opacity: 0.45;
+}
+
+.tracklist__row:hover,
+.tracklist__row.is-touched {
+  opacity: 1 !important;
+  background: rgba(242, 241, 236, 0.04);
+}
+
+/* Auto-reveal the divider line as each row scrolls into view, staggered
+   per row via --i (set in js/main.js), with a base delay so it draws
+   in just after the row itself has faded in. */
+.tracklist__row.in-view::after {
+  transform: scaleX(1);
+  transition-delay: calc(var(--i, 0) * 60ms + 400ms);
+}
+
+/* Hover/tap should react immediately, not wait on the entrance delay
+   above -- same specificity as the rule above, so source order (this
+   coming after) is what makes it win. */
+.tracklist__row:hover::after,
+.tracklist__row.is-touched::after {
+  transform: scaleX(1);
+  transition-delay: 0s;
+}
+
+.tracklist__row:nth-child(1) { transition-delay: 0ms, 0ms, 0ms; }
+.tracklist__row:nth-child(2) { transition-delay: 60ms, 60ms, 0ms; }
+.tracklist__row:nth-child(3) { transition-delay: 120ms, 120ms, 0ms; }
+.tracklist__row:nth-child(4) { transition-delay: 180ms, 180ms, 0ms; }
+.tracklist__row:nth-child(5) { transition-delay: 240ms, 240ms, 0ms; }
+.tracklist__row:nth-child(6) { transition-delay: 300ms, 300ms, 0ms; }
+.tracklist__row:nth-child(7) { transition-delay: 360ms, 360ms, 0ms; }
+.tracklist__row:nth-child(8) { transition-delay: 420ms, 420ms, 0ms; }
+
+.tracklist__num {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--fg-dim);
+  transition: color 0.25s ease;
+}
+
+.tracklist__row:hover .tracklist__num,
+.tracklist__row.is-touched .tracklist__num {
+  color: var(--fg);
+}
+
+.tracklist__title {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(18px, 2.4vw, 28px);
+}
+
+.tracklist__artist {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--fg-dim);
+}
+
+.tracklist__tags {
+  display: flex;
+  gap: 8px;
+}
+
+.tracklist__tags em {
+  font-style: normal;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 4px 10px;
+  color: var(--fg-dim);
+  transition: color 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+}
+
+.tracklist__row:hover .tag--mix,
+.tracklist__row.is-touched .tag--mix {
+  color: var(--accent-mix);
+  border-color: var(--accent-mix);
+}
+
+.tracklist__row:hover .tag--master,
+.tracklist__row.is-touched .tag--master {
+  color: var(--accent-master);
+  border-color: var(--accent-master);
+}
+
+.tracklist__row:hover .tag--record,
+.tracklist__row.is-touched .tag--record {
+  color: var(--accent-record);
+  border-color: var(--accent-record);
+}
+
+.tracklist__row:hover .tag--alt,
+.tracklist__row.is-touched .tag--alt {
+  color: var(--accent-alt);
+  border-color: var(--accent-alt);
+}
+
+/* Touch devices can't hover, so show each tag's accent color
+   permanently instead of gating it behind a hover state. Just the
+   outline/text color, no fill -- matches the rest of the site's
+   outlined-pill look instead of reading as a solid colored badge. */
+@media (hover: none) {
+  .tracklist__tags em.tag--mix {
+    color: var(--accent-mix);
+    border-color: var(--accent-mix);
+  }
+
+  .tracklist__tags em.tag--master {
+    color: var(--accent-master);
+    border-color: var(--accent-master);
+  }
+
+  .tracklist__tags em.tag--record {
+    color: var(--accent-record);
+    border-color: var(--accent-record);
+  }
+
+  .tracklist__tags em.tag--alt {
+    color: var(--accent-alt);
+    border-color: var(--accent-alt);
+  }
+}
+
+.tracklist__time {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--fg-dim);
+  text-align: right;
+}
+
+.tracklist__player {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.tracklist__play {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--fg);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.tracklist__play:hover {
+  transform: scale(1.08);
+}
+
+.tracklist__play:active {
+  transform: scale(0.93);
+}
+
+.tracklist__play svg {
+  width: 32px;
+  height: 32px;
+  fill: currentColor;
+}
+
+.tracklist__play .icon-pause {
+  display: none;
+}
+
+.tracklist__play.is-playing .icon-play {
+  display: none;
+}
+
+.tracklist__play.is-playing .icon-pause {
+  display: block;
+}
+
+.tracklist__waveform {
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+}
+
+@media (max-width: 720px) {
+  .tracklist__cover {
+    display: flex;
+  }
+
+  .tracklist__row {
+    grid-template-columns: 56px 1fr;
+    column-gap: 16px;
+    grid-template-areas:
+      "cover num"
+      "cover title"
+      "cover artist"
+      "cover tags"
+      "cover time"
+      "player player";
+    row-gap: 6px;
+  }
+  .tracklist__cover { grid-area: cover; align-self: start; }
+  .tracklist__num { grid-area: num; }
+  .tracklist__title { grid-area: title; }
+  .tracklist__artist { grid-area: artist; }
+  .tracklist__tags { grid-area: tags; }
+  .tracklist__time { grid-area: time; text-align: left; }
+  .tracklist__player { grid-area: player; margin-top: 14px; }
+}
+
+/* ---------- about ---------- */
+.about__grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 80px;
+}
+
+.about__bio {
+  font-size: clamp(18px, 2.2vw, 24px);
+  line-height: 1.5;
+  font-weight: 400;
+  max-width: 46ch;
+}
+
+.about__specialties li {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 18px;
+}
+
+.about__specialties-num {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--fg-dim);
+}
+
+.about__facts {
+  margin-top: 72px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 40px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+
+@media (max-width: 720px) {
+  .about__grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
+/* ---------- contact ---------- */
+.contact__email {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(32px, 7vw, 88px);
+  line-height: 1;
+  border-bottom: 2px solid var(--fg);
+  padding-bottom: 8px;
+  transition: opacity 0.25s ease;
+}
+
+.contact__email:hover {
+  opacity: 0.6;
+}
+
+.contact__grid {
+  margin-top: 56px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 40px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.contact__grid a {
+  opacity: 0.75;
+  transition: opacity 0.25s ease;
+}
+
+.contact__grid a:hover {
+  opacity: 1;
+}
+
+/* ---------- footer ---------- */
+.footer {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 32px 40px 48px;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+
+/* ---------- scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.25s ease;
+}
+
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* single-line slide-up mask, used for headings / hero title / email */
+.line-mask {
+  display: block;
+  overflow: hidden;
+}
+
+.line-mask .reveal-text {
+  display: block;
+  transform: translateY(105%);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.line-mask.in-view .reveal-text {
+  transform: translateY(0);
+}
+
+/* word-by-word cascade, used for longer lines of copy */
+.flow-words .word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.flow-words .word-inner {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(70%);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.6s ease;
+  transition-delay: calc(var(--i, 0) * 35ms);
+}
+
+.flow-words.in-view .word-inner {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- mobile ---------- */
+@media (max-width: 480px) {
+  .nav {
+    padding: 18px 20px;
+  }
+
+  .nav__mark {
+    font-size: 11px;
+  }
+
+  .nav__links {
+    gap: 12px;
+    font-size: 10px;
+  }
+
+  .hero {
+    padding: 0 24px 24px;
+  }
+
+  .hero__base {
+    margin-top: 32px;
+  }
+
+  section {
+    padding: 72px 24px;
+  }
+
+  .section-head {
+    margin-bottom: 40px;
+  }
+
+  .footer {
+    padding: 24px 24px 32px;
+  }
+}
