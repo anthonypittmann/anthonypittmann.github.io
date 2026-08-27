@@ -931,41 +931,6 @@ background before shipping -- clean leaf, no ring/text remnant.
 
 Bumped `style.css` cache-busting to `?v=48` (no JS changes).
 
-### v49 — 2026-08-23
-Two more follow-ups.
-
-**Nav icon still blurry after v47.** Root cause turned out not to be
-resolution at all -- it was rendering *fine detail that's too thin to
-survive at a 40px display size regardless of source resolution*: the
-fader cap's groove line and the frame's border stroke both worked out
-to well under 1 CSS pixel wide at final display size, so they
-anti-aliased into a soft smear no matter how much source resolution
-backed them. Redesigned specifically for this small size rather than
-reusing the favicon's proportions: dropped the groove line entirely
-(illegible this small anyway -- caps are now solid, distinguished by
-color alone), thickened the border stroke (`SIZE*0.045`, up from
-`0.02`) and track width, and rendered at 200px source (5x the 40px
-display target, comfortable retina headroom). Verified by drawing the
-actual exported PNG at real 40px display size on a canvas filled with
-the site's exact `#111110`, next to real nav text -- both the border
-and cap edges read clean now, not muddy.
-
-**Canada badge crop math was wrong.** User asked for the leaf "a tad
-smaller" (more margin). First attempt (`scale(1.3)`) actually showed
-*more* image than v48's `scale(1.62)`, not less -- had the formula
-backwards (used `0.5/scale` for the visible-fraction calculation, the
-correct relationship for `object-fit: cover` + `transform: scale(s)`
-is `1/s`). At `scale(1.3)` that's 76.9% of the source diameter,
-past the ~73.3%-radius point where the black ring/text starts (per
-the Pillow measurement from v48) -- confirmed the bug by direct PIL
-crop, which showed faint ring/text bleeding in at the top/bottom.
-Landed on `scale(1.48)` (shows ~67.6% of the diameter -- comfortably
-inside the 73.3% boundary, and visibly more margin around the leaf
-than v48's tighter 61.7%). Verified with the same direct-PIL-crop
-method before touching the CSS this time.
-
-Bumped `style.css` cache-busting to `?v=49` (no JS changes).
-
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
