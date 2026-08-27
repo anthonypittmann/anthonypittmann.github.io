@@ -751,29 +751,6 @@ evaluates `false`, confirming the rule is inactive there.
 
 Bumped `style.css` cache-busting to `?v=42` (JS unchanged).
 
-### v43 — 2026-08-23
-User reported double divider lines on iPhone -- the tapped row (via
-`.is-touched`) and whatever row had scrolled into the viewport center
-(via v41's `.in-frame`) could each independently be lit at once.
-Rather than try to reconcile two competing "current row" mechanisms on
-touch, removed tap-to-select entirely there per explicit request:
-`js/main.js` now only attaches the row's `click` -> `selectRow()`
-listener when `matchMedia("(hover: hover)").matches` is true, so touch
-devices never set `.is-touched` from tapping a row at all -- `.in-frame`
-(scroll position) is the sole source of truth for the divider line on
-touch now. Desktop is unaffected (still selects via `mouseenter` *and*
-`click`, unchanged). Removed the now-dead `.tracklist__row.is-touched::after`
-rule from the touch-only CSS block, leaving just `.in-frame::after`.
-The play button's own click handler still calls `selectRow()`
-regardless of device -- that's an explicit action (pressing play), not
-an implicit "tap anywhere on the row" one, and wasn't part of the
-complaint. Verified via simulated click events under both mobile
-(`hover:none`) and desktop (`hover:hover`) emulation: touch click no
-longer sets `.is-touched` on any row; desktop click still does, exactly
-as before.
-
-Bumped both `style.css` and `main.js` cache-busting to `?v=43`.
-
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
