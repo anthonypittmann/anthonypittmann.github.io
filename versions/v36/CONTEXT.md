@@ -574,14 +574,6 @@ data could still be added using email + city — phone isn't strictly
 required — worth revisiting since the "needs real contact info" blocker
 from v33 is now partly cleared.
 
-### v36 — 2026-08-23
-Wired up the real Instagram link (was `href="#"` placeholder since the
-site's inception) to `https://www.instagram.com/anthonypittmann/`,
-handle given directly by the user. Couldn't verify the profile
-resolves via `curl` — Instagram serves a generic client-rendered shell
-to non-browser requests regardless of whether the handle exists, so
-that check is inconclusive either way; used the handle as given.
-
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
