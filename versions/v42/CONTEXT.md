@@ -730,27 +730,6 @@ check to confirm.
 
 Bumped both `style.css` and `main.js` cache-busting to `?v=41`.
 
-### v42 — 2026-08-23
-User confirmed the v41 scroll-tracking divider line works on their
-iPhone. Follow-up complaint: tapping a row on iPhone greyed out the
-whole rest of the tracklist. Root cause: `.tracklist:hover
-.tracklist__row { opacity: 0.45; }` (dims every other row to spotlight
-whichever one you're on) is meant as a mouse-hover trick, but iOS
-Safari has a known quirk where tapping an element can trigger a
-lingering `:hover` state on it (and its ancestors) since touch has no
-real hover concept -- so tapping a row was also triggering the
-container's `:hover`, dimming everything else, and not clearing
-reliably. Scoped that dimming rule inside `@media (hover: hover)` so it
-only ever applies on real hover-capable (mouse) devices; touch is
-unaffected regardless of iOS's sticky-hover behavior. Left the tapped
-row's own subtle highlight (`.is-touched` -> `opacity: 1` + light
-background tint) as-is -- it's harmless with nothing around it dimming
-anymore, and wasn't what was complained about. Verified via
-`matchMedia('(hover: hover)')` under mobile emulation: correctly
-evaluates `false`, confirming the rule is inactive there.
-
-Bumped `style.css` cache-busting to `?v=42` (JS unchanged).
-
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
