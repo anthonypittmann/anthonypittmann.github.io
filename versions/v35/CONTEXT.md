@@ -554,26 +554,6 @@ GitHub Pages without fronting it with something like Cloudflare —
 judged not worth the added complexity for a static site with no forms/
 login/user data.
 
-### v35 — 2026-08-23
-Real contact info, first swap since launch. Replaced the placeholder
-email (`hello@example.com`) with the user's real workspace alias,
-`mixing@anthonypittman.ca`. Removed the phone number entirely (was a
-fake placeholder, `+1 306 555-0100`) — user explicitly does not want a
-phone number public on the site; personal number stays given out
-privately to clients only, not published. `.contact__grid` is a `flex`
-container so it re-flows fine with just the Instagram link left, no
-layout fix needed. Verified via DOM query (not visual screenshot — this
-sandbox's scroll/reveal capture has a known quirk with this site, noted
-back in v4/v12/v17) that the email link's `href`/text and the grid's
-remaining link are correct.
-
-Note for next SEO pass: real email now exists, but per user request
-there's still no phone number, and the About section's address is just
-"Saskatoon, SK" (no street address). LocalBusiness JSON-LD structured
-data could still be added using email + city — phone isn't strictly
-required — worth revisiting since the "needs real contact info" blocker
-from v33 is now partly cleared.
-
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
