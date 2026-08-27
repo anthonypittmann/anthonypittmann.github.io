@@ -630,41 +630,6 @@ v17/v35) and returned an unstyled snapshot instead of the real render.
 
 Bumped both `style.css` and `main.js` cache-busting to `?v=38`.
 
-### v39 — 2026-08-23
-Two follow-ups.
-
-**Spotify embed corner seam:** user reported a faint white sliver still
-showing at the rounded corners even after v38's background-match fix.
-Concluded this is very likely rendering happening *inside* Spotify's
-own iframe content (their player card, served from open.spotify.com)
-rather than anything on our page -- browsers block a parent page from
-reaching into or styling cross-origin iframe internals, so if their
-card sits slightly inset from its own frame edge with its own corner
-treatment, nothing in our CSS can touch it. No further code change
-made here; flagged to the user as a "Spotify thing," not a bug in our
-markup.
-
-**Divider line now hover-only.** The tracklist row's bottom divider
-line (the "shoots across" sweep effect) used to auto-reveal permanently
-once a row scrolled into view (`.in-view::after`, added v18) and then
-also stayed lit via the persistent `.is-touched` selection state (v24)
-even after the pointer moved elsewhere -- in practice this meant the
-line was visible almost all the time, defeating its point as a hover
-accent. Per feedback, removed the `.in-view::after` auto-reveal rule
-entirely and split the remaining trigger: `.tracklist__row:hover::after`
-now handles desktop (reacts to real cursor position, so it reverses
-immediately when the pointer actually leaves -- unaffected by
-`.is-touched` persisting for the unrelated row-highlight/tag-color/
-cover-art selection state), while `.tracklist__row.is-touched::after`
-is now scoped inside `@media (hover: none)` so touch devices (no
-`:hover` available) keep their tap-to-reveal equivalent without
-reintroducing the "stays lit after you've moved on" effect on desktop.
-Verified via `getComputedStyle` with `.in-view` forced on a row: `::after`
-correctly stays `scaleX(0)` at rest, only the `:hover` rule sets `scaleX(1)`.
-
-Bumped `style.css` cache-busting to `?v=39` (JS unchanged, left
-`main.js?v=38` alone).
-
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
