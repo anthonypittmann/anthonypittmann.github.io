@@ -665,30 +665,6 @@ correctly stays `scaleX(0)` at rest, only the `:hover` rule sets `scaleX(1)`.
 Bumped `style.css` cache-busting to `?v=39` (JS unchanged, left
 `main.js?v=38` alone).
 
-### v40 — 2026-08-23
-Actual fix for the Spotify embed corner seam (v38/v39 attempts didn't
-fully clear it). User sent a zoomed screenshot showing a single white
-pixel right at the top-right corner tip -- that precise a leak, at
-exactly the highest-curvature point, matches a known browser quirk
-rather than something inside Spotify's own content: an `<iframe>` gets
-composited as its own GPU layer, and rounding it directly
-(`border-radius` + `overflow: hidden` on the iframe itself, what v38
-did) can leave a sub-pixel gap right at the corner tip even when colors
-match, because the rounded clip mask doesn't always fully cover that
-point on the iframe's separate layer.
-
-Fix: moved the rounding one level up. `js/main.js` now wraps the
-Spotify iframe in a plain `<div class="spotify-embed">`; that wrapper
-carries `border-radius: 12px`, `overflow: hidden`, and
-`background: var(--bg)` (in `style.css`), while the iframe itself is
-unrounded (`border-radius: 0`) and just fills the wrapper edge-to-edge.
-Plain divs don't have the same GPU-layer corner-clip issue, so this
-should fully close the gap rather than just minimize it. Verified via
-`getComputedStyle`: wrapper has the radius/clip/background, iframe
-itself reports `border-radius: 0px`.
-
-Bumped both `style.css` and `main.js` cache-busting to `?v=40`.
-
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
