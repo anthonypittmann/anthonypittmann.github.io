@@ -907,30 +907,6 @@ image itself doesn't need to carry that weight.
 
 Bumped `style.css` cache-busting to `?v=47` (no JS changes).
 
-### v48 — 2026-08-23
-User didn't want the black ring/text on the Canada badge -- just the
-maple leaf. This is cansumer.ca's official certification badge (not
-authored by us), so cropping it changes it from "displaying their
-verification mark" to "using their leaf artwork as a decorative
-graphic" -- flagged that distinction to the user before doing it; fine
-here since the real certification claim is already carried by the
-plain-text "Owned & Operated in Canada" label added alongside it in
-v46.
-
-Measured the leaf's actual bounding box in the source image with
-Pillow (`pip3 install Pillow`, scan for high-red/low-green/low-blue
-opaque pixels) rather than eyeballing a crop: leaf is centered at
-~50%/50%, spans ~56% width / ~61% height of the 483x484 source. Built
-the crop in CSS, not a pre-cropped image file, so it stays live/
-editable: `.footer__badge-mark` is a 40x40px circle
-(`overflow:hidden; border-radius:50%`) wrapping the `<img>`, which gets
-`object-fit:cover` + `transform:scale(1.62)` to zoom into just the
-leaf. Verified by replicating the exact same crop math in a canvas
-against the real downloaded image and the site's actual `#111110`
-background before shipping -- clean leaf, no ring/text remnant.
-
-Bumped `style.css` cache-busting to `?v=48` (no JS changes).
-
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
