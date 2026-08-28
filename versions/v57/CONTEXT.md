@@ -1114,18 +1114,6 @@ future session notices the mismatch.
 
 No CSS/JS touched, no cache-busting bump needed.
 
-### v57 — 2026-08-28
-Hero eyebrow (the small line above "ANTHONY PITTMAN") changed from
-"Recording — Producing — Mixing" to "Mixing & Recording Engineer —
-Producer", per direct request. Used an em-dash to match the site's
-existing typographic convention rather than the plain hyphen the user
-typed casually -- worth double-checking they're happy with that
-substitution if not explicitly confirmed. Verified no overflow at
-375px mobile width (wraps cleanly to 2 lines, 327px wide vs 375px
-viewport).
-
-No CSS/JS touched, no cache-busting bump needed.
-
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
