@@ -1039,33 +1039,6 @@ strip left as-is, both still consistent with the new bio.
 
 No cache-busting bump needed (HTML content change only, no CSS/JS).
 
-### v53 — 2026-08-28
-Repositioned the service triad site-wide from "Recording — Mixing —
-Mastering" to "Recording — Producing — Mixing", folding mastering in
-as implicit rather than a fourth/separate offering, per direct
-request to make this consistent everywhere it appears:
-- Hero eyebrow: "Recording — Mixing — Mastering" ->
-  "Recording — Producing — Mixing"
-- About specialties list: was Mixing/Recording & Editing/Mastering
-  (01/02/03) -> reordered + swapped to Recording & Editing/Producing/
-  Mixing (01/02/03), matching the hero's order
-- Extended to the SEO/social tags too (title, meta description,
-  og:title/description, twitter:title/description), which all still
-  said "Mixing & Mastering Engineer" / "mixing, recording and
-  mastering engineer" with no mention of producing at all -- now
-  "Recording, Producing & Mixing Engineer" / "recording, producing
-  and mixing engineer". This wasn't explicitly asked for but is a
-  direct extension of "across the website"; flagged to the user in
-  case they want the meta copy handled separately from the visible
-  page copy in the future.
-
-Left the About bio paragraph's own role list ("mix engineer, recording
-engineer, and producer") untouched -- that ordering is deliberately
-tied to the very next sentence ("Mixing is his primary focus"),
-different structure/purpose than the tagline-style lists.
-
-No CSS/JS touched, no cache-busting bump needed (content-only change).
-
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
