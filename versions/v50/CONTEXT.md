@@ -966,29 +966,6 @@ method before touching the CSS this time.
 
 Bumped `style.css` cache-busting to `?v=49` (no JS changes).
 
-### v50 — 2026-08-28
-Two more rounds of feedback on the fader mark, both in the direction
-of pulling back.
-
-**Removed the groove line from the favicon set.** `favicon-{48,96,192}.png`
-and `apple-touch-icon.png` still had the original design's black
-groove line across each fader cap (the nav icon lost this in v49, but
-these favicon files were never regenerated). Redrew them with the
-same solid-cap simplification, same frame styling as before (BG fill,
-0.22 border opacity -- that part wasn't part of the complaint).
-
-**Reverted the nav header back to plain text.** User said they
-preferred just "Anthony Pittman" with no logo. Removed the `<img>`
-entirely from `.nav__mark`, back to a single text-only link matching
-the pre-v44 markup. Cleaned up the now-dead CSS (`.nav__mark-icon` in
-both the desktop and mobile blocks, and the `display:inline-flex`/
-`gap` on `.nav__mark` that existed only to lay out icon+text side by
-side) and deleted `assets/icons/nav-icon.png`, no longer referenced
-anywhere. Favicon `<link>` tags in `<head>` are untouched -- user still
-wants the favicon itself, just not the header logo.
-
-Bumped `style.css` cache-busting to `?v=50` (no JS changes).
-
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
