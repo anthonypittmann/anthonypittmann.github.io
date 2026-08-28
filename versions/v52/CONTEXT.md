@@ -1027,18 +1027,6 @@ algorithm is sound independent of the event-firing gap.
 Bumped `main.js` cache-busting to `?v=51` (JS changed, CSS didn't --
 left `style.css?v=50` alone).
 
-### v52 — 2026-08-28
-Real bio copy, replacing the placeholder that's been in `.about__bio`
-since v1: mix/recording engineer + producer, based in Saskatoon,
-completing a Music Production degree at Berklee College of Music,
-mixing as primary focus informed by his recording/production
-background, works across genres both locally and remotely. Content-
-only change (no HTML structure/CSS/JS touched) -- `.about__specialties`
-list (Mixing / Recording & Editing / Mastering) and `.about__facts`
-strip left as-is, both still consistent with the new bio.
-
-No cache-busting bump needed (HTML content change only, no CSS/JS).
-
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
