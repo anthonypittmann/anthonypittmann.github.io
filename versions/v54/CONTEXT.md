@@ -1066,15 +1066,6 @@ different structure/purpose than the tagline-style lists.
 
 No CSS/JS touched, no cache-busting bump needed (content-only change).
 
-### v54 — 2026-08-28
-Wording tweak: About specialties list item 01 changed from "Recording
-& Editing" to "Recording & Engineering" ("more professional," per
-direct request) -- scoped to just that one spot. Everywhere else on
-the page (hero eyebrow, bio, meta tags) stays plain "Recording" per
-the user's explicit instruction not to touch those.
-
-No CSS/JS touched, no cache-busting bump needed.
-
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
