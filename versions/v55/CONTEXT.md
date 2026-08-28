@@ -1075,35 +1075,6 @@ the user's explicit instruction not to touch those.
 
 No CSS/JS touched, no cache-busting bump needed.
 
-### v55 — 2026-08-28
-Extended the tracklist's sweep-in divider line pattern to the contact
-email link. Was a static `border-bottom` before; now an `::after` line
-(same 2px, same `0.9s cubic-bezier(0.19,1,0.22,1)` easing as the
-tracklist rows) that starts hidden (`scaleX(0)`) and sweeps in on
-`:hover` (desktop, scoped to `@media (hover: hover)` -- proactively
-avoiding the iOS sticky-hover-on-tap bug hit at v42, rather than
-waiting to get bug-reported into it again) or while scrolled near
-vertical center of the screen (touch, via the same
-`updateEmailInFrame`-style band check added to `js/main.js`'s existing
-rAF-throttled scroll listener from v51 -- reuses the listener, just
-adds a second check alongside `updateInFrameRow`, rather than a
-second listener). Only one contact email exists (not several rows to
-choose among), so this checks a fixed 45%-55% viewport-height band
-around its own bounding box rather than picking a "closest of many"
-like the tracklist version does.
-
-Verified: the `::after` rule/selectors and at-rest `scaleX(0)` via
-computed style; the touch band logic directly by scrolling to center
-the email (`inBand: true`) and back to top (`inBand: false`) and
-replicating the exact check inline, same workaround as v51 for this
-sandbox's `scroll` event not firing on programmatic `scrollTo()`.
-Didn't re-verify hover fundamentally works since it's the identical,
-already-proven `:hover` + `::after` pattern used for
-`.tracklist__row` -- no new mechanism there, just a new selector.
-
-Bumped both `style.css` and `main.js` cache-busting to `?v=51`/`?v=52`
-respectively.
-
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
