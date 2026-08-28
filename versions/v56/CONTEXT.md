@@ -1104,16 +1104,6 @@ already-proven `:hover` + `::after` pattern used for
 Bumped both `style.css` and `main.js` cache-busting to `?v=51`/`?v=52`
 respectively.
 
-### v56 — 2026-08-28
-Reordered the About specialties list per direct request: Mixing (01)
--> Recording & Engineering (02) -> Producing (03). Was Recording &
-Engineering/Producing/Mixing (v54's order, matching the hero eyebrow's
-"Recording — Producing — Mixing"). Note this list's order and the hero
-eyebrow's order are now deliberately different -- not a mistake if a
-future session notices the mismatch.
-
-No CSS/JS touched, no cache-busting bump needed.
-
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
