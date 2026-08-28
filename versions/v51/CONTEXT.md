@@ -989,44 +989,6 @@ wants the favicon itself, just not the header logo.
 
 Bumped `style.css` cache-busting to `?v=50` (no JS changes).
 
-### v51 — 2026-08-28
-User reported the scroll-tracked divider line (v41/v43) worked for
-every row except the Spotify one (row 1, "Overdose") on their iPhone.
-Root cause: that mechanism was an `IntersectionObserver` with a thin
-`rootMargin` band, and cross-origin iframes inside an observed element
-are a known category of WebKit/iOS Safari bug for `isIntersecting`
-reliability -- row 1 is also much taller than the others (348px vs
-~120-150px, since it holds the 152px Spotify iframe instead of the
-compact waveform player), though the height difference alone doesn't
-explain a total failure (a taller element should intersect a fixed
-screen band *more* often, not never) -- points at the iframe
-specifically, not element size.
-
-Replaced the whole mechanism: no more `IntersectionObserver`. Instead,
-a `scroll` listener (throttled via `requestAnimationFrame`) computes,
-on every tick, which row's own vertical center is closest to the
-viewport's vertical center via plain `getBoundingClientRect()` math,
-and marks only that one row `.in-frame`. No iframe-related edge cases
-possible since it's pure geometry, not observer-based. Also more
-robust generally than the old approach -- guarantees exactly one row
-is ever marked (the old thin-band approach could hit stretches with
-zero rows lit mid-scroll).
-
-Verification note: this sandbox's programmatic `window.scrollTo()`
-changes `scrollY` but never fires a native `scroll` event here (same
-category as the long-standing IntersectionObserver-never-fires issue
-noted at v41) -- confirmed by attaching a counting listener and seeing
-it stay at 0 despite `scrollY` changing. Real browsers fire `scroll`
-normally; couldn't be verified end-to-end here for that reason, but
-the *selection logic* itself was verified directly: replicated
-`updateInFrameRow`'s exact computation after scrolling to center row 1
-and separately row 4, and it correctly picked each one (including
-correctly identifying row 1 as a Spotify row) -- confirms the
-algorithm is sound independent of the event-firing gap.
-
-Bumped `main.js` cache-busting to `?v=51` (JS changed, CSS didn't --
-left `style.css?v=50` alone).
-
 ## Hosting
 
 Repo will live on GitHub with Pages enabled (served from `main` branch, root).
